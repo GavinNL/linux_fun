@@ -1,0 +1,10 @@
+#!/bin/bash
+
+#create a blank  file
+dd if=/dev/zero of=$PWD/file.img bs=1M count=10
+
+#format the file as an ext4 file system
+sudo mkfs.ext4 file.img
+
+# mount it in the folder
+sudo mount -o loop file.img $PWD/mnt
