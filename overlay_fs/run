@@ -1,3 +1,3 @@
 #!/bin/bash
 
-mount -t overlay -o lowerdir=$PWD/lower:$PWD/lower2,upperdir=$PWD/upper,workdir=$PWD/work none $PWD/overlay
+mount -t overlay overlay -o lowerdir=$PWD/lower:$PWD/lower2,upperdir=$PWD/upper,workdir=$PWD/work  $PWD/overlay
