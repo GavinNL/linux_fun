@@ -1,0 +1,12 @@
+#!/bin/bash
+
+rmdir -rf isodir
+
+mkdir iso_dir
+touch iso_dir/file_{1,2,3,4,5,6,7}.txt
+
+mkisofs -o my_iso.iso ./iso_dir
+
+mkdir mnt
+
+fuseiso my_iso.iso ./mnt
