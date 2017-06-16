@@ -1,3 +1,51 @@
 #!/bin/bash
 
-mount -t overlay overlay -o lowerdir=$PWD/lower:$PWD/lower2,upperdir=$PWD/upper,workdir=$PWD/work  $PWD/overlay
+#Create a overlay mount point of 3 directoryes
+
+#These two directories will be the lower read-only layer
+LOWER1=$PWD/lower1
+LOWER2=$PWD/lower2
+
+#this directory will be the upper writeble layer
+UPPER=$PWD/upper
+
+# A working directory is needed for overlay mounting
+WORKING=$PWD/work
+
+# the final mount point where our overlay file system will reside
+MOUNT=$PWD/mount
+
+# Create temporary dirrectories
+mkdir -p $LOWER1 $LOWER2 $UPPER $WORKING $MOUNT
+
+# create some temorary files
+touch $LOWER1/lower1__{1,2,3}.txt
+touch $LOWER2/lower2__{1,2,3}.txt
+touch $UPPER/upper2__{1,2,3}.txt
+
+# Mount he overlay filesystem
+sudo mount -t overlay overlay -o lowerdir=$LOWER1:$LOWER2,upperdir=$UPPER,workdir=$WORKING  $MOUNT
+
+touch $MOUNT/mount_{1,2,3}.txt
+
+echo "==== $LOWER1 ==== "
+ls $LOWER1
+echo ""
+echo ""
+echo "==== $LOWER2 ==== "
+ls $LOWER2
+echo ""
+echo ""
+echo "==== $UPPER ==== "
+ls $UPPER
+echo ""
+echo ""
+echo "==== $MOUNT ==== "
+ls $MOUNT
+echo ""
+echo ""
+
+echo "Any new files added or files deleted in the mount directory will be reflected the upper layer"
+echo ""
+echo Type \"sudo umount ${MOUNT}\"  to unmount the file system
+

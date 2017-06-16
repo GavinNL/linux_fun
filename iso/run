@@ -1,12 +1,19 @@
 #!/bin/bash
 
+# remove any old directory
 rmdir -rf isodir
 
+# Create the direcotry we are going to convert into an ISO image
 mkdir iso_dir
+
+# Create some sample files
 touch iso_dir/file_{1,2,3,4,5,6,7}.txt
 
+# Actually make the ISO
 mkisofs -o my_iso.iso ./iso_dir
 
+# Make a mounting point
 mkdir mnt
 
+# Mount the iso using fuseiso
 fuseiso my_iso.iso ./mnt

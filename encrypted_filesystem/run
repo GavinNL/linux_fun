@@ -1,0 +1,34 @@
+#!/bin/bash
+
+#create a folder where the encrypted files will be stored
+mkdir -p encrypted
+
+
+#create a folder where we will mount the file system 
+mkdir -p decrypted
+
+
+# tell encrypt
+
+echo "Running encfs"
+echo ""
+echo ""
+echo "Best to use preconfigured mode"
+echo ""
+echo "Choose \"p\""
+echo ""
+echo "Type in a password when it asks you"
+echo ""
+echo ""
+
+encfs $PWD/encrypted $PWD/decrypted
+
+echo ""
+echo ""
+echo ""
+echo "Type \"fusermount -u $PWD/decrypted\" to unmount the filesystem"
+echo ""
+echo ""
+
+#create some temorprary files in the decrypted folder
+touch $PWD/decrypted/file_{1,2,3,4,5}.txt

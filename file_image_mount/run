@@ -1,10 +1,24 @@
 #!/bin/bash
 
-#create a blank  file
+#create a blank file which is 10Mb in size
 dd if=/dev/zero of=$PWD/file.img bs=1M count=10
 
 #format the file as an ext4 file system
-sudo mkfs.ext4 file.img
+mkfs.ext4 file.img
+
+# make the mount point
+mkdir mnt
 
 # mount it in the folder
 sudo mount -o loop file.img $PWD/mnt
+
+# We need to change the permissions of the folder otherwise only Root can write files
+# into the filesystem
+sudo chmod 777 $PWD/mnt
+
+# Add some files into the folder
+touch $PWD/mnt/file_{1,2,3,4}.txt
+
+
+
+echo Unmount the folder by typing \"sudo umount $PWD/mnt\"
